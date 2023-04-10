@@ -110,7 +110,15 @@ final class TrackersViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let params = UICollectionView.GeometricParams(cellCount: 2, leftInset: 16, rightInset: 16, cellSpacing: 10)
+    private let params = UICollectionView.GeometricParams(
+        cellCount: 2,
+        leftInset: 16,
+        rightInset: 16,
+        topInset: 8,
+        bottomInset: 16,
+        height: 148,
+        cellSpacing: 10
+    )
     private var categories: [TrackerCategory] = TrackerCategory.sampleData
     private var searchText = ""
     private var currentDate = Date.from(date: Date())!
@@ -264,7 +272,7 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     {
         let availableSpace = collectionView.frame.width - params.paddingWidth
         let cellWidth = availableSpace / params.cellCount
-        return CGSize(width: cellWidth, height: 148)
+        return CGSize(width: cellWidth, height: params.height)
     }
     
     func collectionView(
@@ -272,7 +280,7 @@ extension TrackersViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int) -> UIEdgeInsets
     {
-        UIEdgeInsets(top: 8, left: params.leftInset, bottom: 16, right: params.rightInset)
+        UIEdgeInsets(top: params.topInset, left: params.leftInset, bottom: params.bottomInset, right: params.rightInset)
     }
     
     func collectionView(

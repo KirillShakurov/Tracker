@@ -31,6 +31,7 @@
 		02B9EDF529DCA14300436D09 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9EDF429DCA14300436D09 /* ScheduleViewController.swift */; };
 		02B9EDF729DCA15800436D09 /* WeekdayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9EDF629DCA15800436D09 /* WeekdayCell.swift */; };
 		02B9EDF929DCA1A000436D09 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9EDF829DCA1A000436D09 /* Constants.swift */; };
+		02D0273C29E43E730074873A /* SelectionCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D0273B29E43E730074873A /* SelectionCellProtocol.swift */; };
 		02E6338029D08D2A00817892 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E6337F29D08D2A00817892 /* AppDelegate.swift */; };
 		02E6338229D08D2A00817892 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E6338129D08D2A00817892 /* SceneDelegate.swift */; };
 		02E6338929D08D2A00817892 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02E6338829D08D2A00817892 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		02B9EDF429DCA14300436D09 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		02B9EDF629DCA15800436D09 /* WeekdayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayCell.swift; sourceTree = "<group>"; };
 		02B9EDF829DCA1A000436D09 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		02D0273B29E43E730074873A /* SelectionCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCellProtocol.swift; sourceTree = "<group>"; };
 		02E6337C29D08D2A00817892 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02E6337F29D08D2A00817892 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02E6338129D08D2A00817892 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				02B9EDED29DCA0C300436D09 /* ColorCell.swift */,
 				02B9EDEF29DCA0D600436D09 /* SelectionTitle.swift */,
 				02B9EDF129DCA0F700436D09 /* ListCell.swift */,
+				02D0273B29E43E730074873A /* SelectionCellProtocol.swift */,
 			);
 			path = TrackerForm;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				02571BAF29D5F8A70075B563 /* UICollectionView+Extensions.swift in Sources */,
 				02571BA629D5F8380075B563 /* TrackerRecord.swift in Sources */,
 				02571BA429D5F8190075B563 /* TrackerCategory.swift in Sources */,
+				02D0273C29E43E730074873A /* SelectionCellProtocol.swift in Sources */,
 				02B9EDF029DCA0D600436D09 /* SelectionTitle.swift in Sources */,
 				02571B8929D5F6C90075B563 /* TabBarController.swift in Sources */,
 				02571B8E29D5F71D0075B563 /* TextField.swift in Sources */,
