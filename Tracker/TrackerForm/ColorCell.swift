@@ -42,16 +42,6 @@ final class ColorCell: UICollectionViewCell {
         colorView.backgroundColor = color
         self.color = color
     }
-    
-    func select() {
-        guard let color else { return }
-        contentView.layer.borderColor = color.withAlphaComponent(0.3).cgColor
-        contentView.layer.borderWidth = 3
-    }
-    
-    func deselect() {
-        contentView.layer.borderWidth = 0
-    }
 }
 
 // MARK: - Layout methods
@@ -73,3 +63,16 @@ private extension ColorCell {
         ])
     }
 }
+
+extension ColorCell: SelectionCellProtocol {
+    func select() {
+        guard let color else { return }
+        contentView.layer.borderColor = color.withAlphaComponent(0.3).cgColor
+        contentView.layer.borderWidth = 3
+    }
+    
+    func deselect() {
+        contentView.layer.borderWidth = 0
+    }
+}
+
