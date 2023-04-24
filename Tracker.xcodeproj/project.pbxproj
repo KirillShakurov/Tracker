@@ -27,6 +27,10 @@
 		025D250D29EDB78600218ECF /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025D250C29EDB78600218ECF /* TrackerCategoryStore.swift */; };
 		025D250F29EDB79A00218ECF /* TrackerRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025D250E29EDB79A00218ECF /* TrackerRecordStore.swift */; };
 		025D251129EDB7C400218ECF /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025D251029EDB7C400218ECF /* UIColorMarshalling.swift */; };
+		027F480029F6EBBB00919922 /* UserDefaultsBacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F47FF29F6EBBB00919922 /* UserDefaultsBacked.swift */; };
+		027F480329F6EC9800919922 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F480229F6EC9800919922 /* OnboardingViewController.swift */; };
+		027F480529F6ECD600919922 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F480429F6ECD600919922 /* OnboardingPageViewController.swift */; };
+		027F480829F6EDBB00919922 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F480729F6EDBB00919922 /* RootViewController.swift */; };
 		02B9EDE729DC9FD700436D09 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9EDE629DC9FD700436D09 /* ListItem.swift */; };
 		02B9EDEA29DCA08B00436D09 /* TrackerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9EDE929DCA08B00436D09 /* TrackerFormViewController.swift */; };
 		02B9EDEC29DCA0A100436D09 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9EDEB29DCA0A100436D09 /* EmojiCell.swift */; };
@@ -64,6 +68,10 @@
 		025D250C29EDB78600218ECF /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
 		025D250E29EDB79A00218ECF /* TrackerRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecordStore.swift; sourceTree = "<group>"; };
 		025D251029EDB7C400218ECF /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
+		027F47FF29F6EBBB00919922 /* UserDefaultsBacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsBacked.swift; sourceTree = "<group>"; };
+		027F480229F6EC9800919922 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		027F480429F6ECD600919922 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		027F480729F6EDBB00919922 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		02B9EDE629DC9FD700436D09 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		02B9EDE929DCA08B00436D09 /* TrackerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerFormViewController.swift; sourceTree = "<group>"; };
 		02B9EDEB29DCA0A100436D09 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
@@ -156,6 +164,7 @@
 				02571BAC29D5F8890075B563 /* Int+Extensions.swift */,
 				02571BAE29D5F8A70075B563 /* UICollectionView+Extensions.swift */,
 				025D251029EDB7C400218ECF /* UIColorMarshalling.swift */,
+				027F47FF29F6EBBB00919922 /* UserDefaultsBacked.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -177,6 +186,23 @@
 				025D250E29EDB79A00218ECF /* TrackerRecordStore.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		027F480129F6EC4800919922 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				027F480229F6EC9800919922 /* OnboardingViewController.swift */,
+				027F480429F6ECD600919922 /* OnboardingPageViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		027F480629F6ED0300919922 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				027F480729F6EDBB00919922 /* RootViewController.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		02B9EDE829DCA07F00436D09 /* TrackerForm */ = {
@@ -220,6 +246,8 @@
 		02E6337E29D08D2A00817892 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				027F480629F6ED0300919922 /* Root */,
+				027F480129F6EC4800919922 /* Onboarding */,
 				025D250529EDB55B00218ECF /* Domain */,
 				02B9EDF329DCA13700436D09 /* Schedule */,
 				02B9EDE829DCA07F00436D09 /* TrackerForm */,
@@ -311,7 +339,9 @@
 			files = (
 				02B9EDE729DC9FD700436D09 /* ListItem.swift in Sources */,
 				02571B9329D5F7630075B563 /* TrackerCell.swift in Sources */,
+				027F480829F6EDBB00919922 /* RootViewController.swift in Sources */,
 				025D251129EDB7C400218ECF /* UIColorMarshalling.swift in Sources */,
+				027F480329F6EC9800919922 /* OnboardingViewController.swift in Sources */,
 				02B9EDEE29DCA0C300436D09 /* ColorCell.swift in Sources */,
 				025D250929EDB5BE00218ECF /* Model.xcdatamodeld in Sources */,
 				025D250B29EDB77200218ECF /* TrackerStore.swift in Sources */,
@@ -320,6 +350,7 @@
 				02571BAD29D5F8890075B563 /* Int+Extensions.swift in Sources */,
 				02571B9829D5F7950075B563 /* StatisticsViewController.swift in Sources */,
 				02B9EDF929DCA1A000436D09 /* Constants.swift in Sources */,
+				027F480529F6ECD600919922 /* OnboardingPageViewController.swift in Sources */,
 				02571B9B29D5F7B20075B563 /* AddTrackerViewController.swift in Sources */,
 				02571B8C29D5F7030075B563 /* Button.swift in Sources */,
 				02571BAB29D5F8740075B563 /* UIColor+Extenstions.swift in Sources */,
@@ -340,6 +371,7 @@
 				025D250D29EDB78600218ECF /* TrackerCategoryStore.swift in Sources */,
 				02571B8E29D5F71D0075B563 /* TextField.swift in Sources */,
 				02E6338029D08D2A00817892 /* AppDelegate.swift in Sources */,
+				027F480029F6EBBB00919922 /* UserDefaultsBacked.swift in Sources */,
 				02E6338229D08D2A00817892 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
