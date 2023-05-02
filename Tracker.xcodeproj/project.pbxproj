@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0215C4102A010A9000E2C6B0 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C40F2A010A9000E2C6B0 /* CategoriesViewController.swift */; };
+		0215C4122A010AE900E2C6B0 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4112A010AE900E2C6B0 /* CategoriesViewModel.swift */; };
+		0215C4142A010B1100E2C6B0 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4132A010B1100E2C6B0 /* CategoryCell.swift */; };
+		0215C4162A010B2A00E2C6B0 /* CategoryFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4152A010B2A00E2C6B0 /* CategoryFormViewController.swift */; };
+		0215C4182A010CBF00E2C6B0 /* NotFoundStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4172A010CBF00E2C6B0 /* NotFoundStack.swift */; };
+		0215C41A2A010D3700E2C6B0 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4192A010D3700E2C6B0 /* UIViewController+Extensions.swift */; };
 		02571B8929D5F6C90075B563 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02571B8829D5F6C90075B563 /* TabBarController.swift */; };
 		02571B8C29D5F7030075B563 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02571B8B29D5F7030075B563 /* Button.swift */; };
 		02571B8E29D5F71D0075B563 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02571B8D29D5F71D0075B563 /* TextField.swift */; };
@@ -48,6 +54,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0215C40F2A010A9000E2C6B0 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		0215C4112A010AE900E2C6B0 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		0215C4132A010B1100E2C6B0 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		0215C4152A010B2A00E2C6B0 /* CategoryFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFormViewController.swift; sourceTree = "<group>"; };
+		0215C4172A010CBF00E2C6B0 /* NotFoundStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundStack.swift; sourceTree = "<group>"; };
+		0215C4192A010D3700E2C6B0 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		02571B8829D5F6C90075B563 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		02571B8B29D5F7030075B563 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		02571B8D29D5F71D0075B563 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
@@ -101,6 +113,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0215C40E2A010A8200E2C6B0 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0215C40F2A010A9000E2C6B0 /* CategoriesViewController.swift */,
+				0215C4112A010AE900E2C6B0 /* CategoriesViewModel.swift */,
+				0215C4132A010B1100E2C6B0 /* CategoryCell.swift */,
+				0215C4152A010B2A00E2C6B0 /* CategoryFormViewController.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		02571B8729D5F6B80075B563 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +138,7 @@
 				02571B8B29D5F7030075B563 /* Button.swift */,
 				02571B8D29D5F71D0075B563 /* TextField.swift */,
 				02B9EDE629DC9FD700436D09 /* ListItem.swift */,
+				0215C4172A010CBF00E2C6B0 /* NotFoundStack.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -165,6 +189,7 @@
 				02571BAE29D5F8A70075B563 /* UICollectionView+Extensions.swift */,
 				025D251029EDB7C400218ECF /* UIColorMarshalling.swift */,
 				027F47FF29F6EBBB00919922 /* UserDefaultsBacked.swift */,
+				0215C4192A010D3700E2C6B0 /* UIViewController+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -246,6 +271,7 @@
 		02E6337E29D08D2A00817892 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				0215C40E2A010A8200E2C6B0 /* Categories */,
 				027F480629F6ED0300919922 /* Root */,
 				027F480129F6EC4800919922 /* Onboarding */,
 				025D250529EDB55B00218ECF /* Domain */,
@@ -345,7 +371,9 @@
 				02B9EDEE29DCA0C300436D09 /* ColorCell.swift in Sources */,
 				025D250929EDB5BE00218ECF /* Model.xcdatamodeld in Sources */,
 				025D250B29EDB77200218ECF /* TrackerStore.swift in Sources */,
+				0215C4162A010B2A00E2C6B0 /* CategoryFormViewController.swift in Sources */,
 				02B9EDF529DCA14300436D09 /* ScheduleViewController.swift in Sources */,
+				0215C41A2A010D3700E2C6B0 /* UIViewController+Extensions.swift in Sources */,
 				02B9EDEC29DCA0A100436D09 /* EmojiCell.swift in Sources */,
 				02571BAD29D5F8890075B563 /* Int+Extensions.swift in Sources */,
 				02571B9829D5F7950075B563 /* StatisticsViewController.swift in Sources */,
@@ -363,6 +391,8 @@
 				02B9EDF229DCA0F700436D09 /* ListCell.swift in Sources */,
 				02571BAF29D5F8A70075B563 /* UICollectionView+Extensions.swift in Sources */,
 				025D250F29EDB79A00218ECF /* TrackerRecordStore.swift in Sources */,
+				0215C4142A010B1100E2C6B0 /* CategoryCell.swift in Sources */,
+				0215C4102A010A9000E2C6B0 /* CategoriesViewController.swift in Sources */,
 				02571BA629D5F8380075B563 /* TrackerRecord.swift in Sources */,
 				02571BA429D5F8190075B563 /* TrackerCategory.swift in Sources */,
 				02D0273C29E43E730074873A /* SelectionCellProtocol.swift in Sources */,
@@ -371,7 +401,9 @@
 				025D250D29EDB78600218ECF /* TrackerCategoryStore.swift in Sources */,
 				02571B8E29D5F71D0075B563 /* TextField.swift in Sources */,
 				02E6338029D08D2A00817892 /* AppDelegate.swift in Sources */,
+				0215C4182A010CBF00E2C6B0 /* NotFoundStack.swift in Sources */,
 				027F480029F6EBBB00919922 /* UserDefaultsBacked.swift in Sources */,
+				0215C4122A010AE900E2C6B0 /* CategoriesViewModel.swift in Sources */,
 				02E6338229D08D2A00817892 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

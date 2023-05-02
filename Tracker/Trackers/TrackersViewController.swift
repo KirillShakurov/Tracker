@@ -72,30 +72,7 @@ final class TrackersViewController: UIViewController {
         return view
     }()
     
-    private let notFoundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "Star")
-        return imageView
-    }()
-    
-    private let notFoundLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.text = "Что будем отслеживать?"
-        label.textColor = .black
-        return label
-    }()
-    
-    private let notFoundStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.alignment = .center
-        stack.spacing = 8
-        return stack
-    }()
+    private let notFoundStack = NotFoundStack(label: "Что будем отслеживать?")
     
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -135,6 +112,8 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hideKeyboardWhenTappedAround()
         
         setupContent()
         setupConstraints()
@@ -194,9 +173,6 @@ private extension TrackersViewController {
         view.addSubview(collectionView)
         view.addSubview(notFoundStack)
         view.addSubview(filterButton)
-        
-        notFoundStack.addArrangedSubview(notFoundImageView)
-        notFoundStack.addArrangedSubview(notFoundLabel)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -384,6 +360,7 @@ extension TrackersViewController: AddTrackerViewControllerDelegate {
         let trackerFormViewController = TrackerFormViewController(type: type)
         trackerFormViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: trackerFormViewController)
+        navigationController.isModalInPresentation = true
         present(navigationController, animated: true)
     }
 }
@@ -397,6 +374,7 @@ extension TrackersViewController: TrackerFormViewControllerDelegate {
     }
     
     func didTapCancelButton() {
+        collectionView.reloadData()
         dismiss(animated: true)
     }
 }
@@ -417,4 +395,5 @@ extension TrackersViewController: TrackerRecordStoreDelegate {
         completedTrackers = records
     }
 }
+
 

@@ -82,7 +82,7 @@ private extension WeekdayCell {
             listItem.topAnchor.constraint(equalTo: contentView.topAnchor),
             listItem.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             listItem.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            // labelsStack
+            // nameLabel
             nameLabel.leadingAnchor.constraint(equalTo: listItem.leadingAnchor, constant: 16),
             nameLabel.centerYAnchor.constraint(equalTo: listItem.centerYAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: listItem.trailingAnchor, constant: -83),
@@ -92,4 +92,3 @@ private extension WeekdayCell {
         ])
     }
 }
-

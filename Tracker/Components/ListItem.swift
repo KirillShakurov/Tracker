@@ -31,7 +31,7 @@ final class ListItem: UIView {
     
     // MARK: - Methods
     
-    func configure(with position: Position = .middle) {
+    func configure(with position: Position) {
         layer.masksToBounds = true
         layer.cornerRadius = 10
         
@@ -45,7 +45,13 @@ final class ListItem: UIView {
         case .last:
             layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         case .alone:
-            break
+            border.isHidden = true
+            layer.maskedCorners = [
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner,
+                .layerMinXMinYCorner,
+                .layerMaxXMinYCorner
+            ]
         }
     }
     
@@ -72,4 +78,3 @@ extension ListItem {
     
     static let height: CGFloat = 75
 }
-
