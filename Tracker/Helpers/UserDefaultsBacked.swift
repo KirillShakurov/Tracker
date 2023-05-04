@@ -8,7 +8,7 @@
 import Foundation
 
 @propertyWrapper
-struct UserDefaultsBacked<Value> {
+struct UserDefaultsBacked<Value: Codable> {
     let key: String
     let storage: UserDefaults = .standard
     

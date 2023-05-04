@@ -72,7 +72,7 @@ final class TrackersViewController: UIViewController {
         return view
     }()
     
-    private let notFoundStack = NotFoundStack(label: "Что будем отслеживать?")
+    private let notFoundView = NotFoundView(label: "Что будем отслеживать?")
     
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -82,6 +82,7 @@ final class TrackersViewController: UIViewController {
         button.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         button.layer.cornerRadius = 16
         button.backgroundColor = .blue
+        button.isHidden = true
         return button
     }()
     
@@ -152,11 +153,11 @@ final class TrackersViewController: UIViewController {
     
     private func checkNumberOfTrackers() {
         if trackerStore.numberOfTrackers == 0 {
-            notFoundStack.isHidden = false
+            notFoundView.isHidden = false
             filterButton.isHidden = true
         } else {
-            notFoundStack.isHidden = true
-            filterButton.isHidden = false
+            notFoundView.isHidden = true
+            filterButton.isHidden = true
         }
     }
 }
@@ -171,7 +172,7 @@ private extension TrackersViewController {
         view.addSubview(datePicker)
         view.addSubview(searchBar)
         view.addSubview(collectionView)
-        view.addSubview(notFoundStack)
+        view.addSubview(notFoundView)
         view.addSubview(filterButton)
         
         collectionView.dataSource = self
@@ -199,9 +200,9 @@ private extension TrackersViewController {
             collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            // notFoundStack
-            notFoundStack.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
-            notFoundStack.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
+            // notFoundView
+            notFoundView.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            notFoundView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
             // filterButton
             filterButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),

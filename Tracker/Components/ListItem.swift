@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ListItem: UIView {
+final class ListItemView: UIView {
     // MARK: - Layout elements
     
     private let border: UIView = {
@@ -71,10 +71,11 @@ final class ListItem: UIView {
     }
 }
 
-extension ListItem {
+extension ListItemView {
     enum Position {
         case first, middle, last, alone
     }
     
     static let height: CGFloat = 75
 }
+

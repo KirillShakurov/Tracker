@@ -17,7 +17,7 @@ final class OnboardingPageViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.textColor = .fullWhite
+        label.textColor = .fullBlack
         return label
     }()
     

@@ -25,6 +25,7 @@ final class CategoryFormViewController: UIViewController {
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         button.isEnabled = false
         button.backgroundColor = .gray
+        button.layer.cornerRadius = 16
         return button
     }()
     
@@ -34,13 +35,8 @@ final class CategoryFormViewController: UIViewController {
     private var data: TrackerCategory.Data
     private var isConfirmButtonEnabled: Bool = false {
         willSet {
-            if newValue {
-                button.backgroundColor = .black
-                button.isEnabled = true
-            } else {
-                button.backgroundColor = .gray
-                button.isEnabled = false
-            }
+            button.backgroundColor = newValue ? .black : .gray
+            button.isEnabled = newValue
         }
     }
     
@@ -101,7 +97,7 @@ private extension CategoryFormViewController {
             textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            textField.heightAnchor.constraint(equalToConstant: ListItem.height),
+            textField.heightAnchor.constraint(equalToConstant: ListItemView.height),
             // button
             button.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),

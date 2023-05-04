@@ -11,7 +11,7 @@ final class CategoryCell: UITableViewCell {
     
     // MARK: - Layout elements
     
-    private lazy var listItem = ListItem()
+    private lazy var listItem = ListItemView()
     private let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ final class CategoryCell: UITableViewCell {
     
     // MARK: - Public
     
-    func configure(with label: String, isSelected: Bool, position: ListItem.Position) {
+    func configure(with label: String, isSelected: Bool, position: ListItemView.Position) {
         listItem.configure(with: position)
         self.label.text = label
         checkmarkImage.isHidden = !isSelected
@@ -79,3 +79,4 @@ private extension CategoryCell {
         ])
     }
 }
+

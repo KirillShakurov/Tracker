@@ -307,14 +307,14 @@ private extension TrackerFormViewController {
             textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
             textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            textField.heightAnchor.constraint(equalToConstant: ListItem.height),
+            textField.heightAnchor.constraint(equalToConstant: ListItemView.height),
             // validationMessage
             validationMessage.centerXAnchor.constraint(equalTo: textField.centerXAnchor),
             validationMessage.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 8),
             // parametersTableView
             parametersTableView.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
             parametersTableView.trailingAnchor.constraint(equalTo: textField.trailingAnchor),
-            parametersTableView.heightAnchor.constraint(equalToConstant: data.schedule == nil ? ListItem.height : 2 *  ListItem.height),
+            parametersTableView.heightAnchor.constraint(equalToConstant: data.schedule == nil ? ListItemView.height : 2 *  ListItemView.height),
             // emojiCollection
             emojisCollection.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             emojisCollection.topAnchor.constraint(equalTo: parametersTableView.bottomAnchor, constant: 32),
@@ -360,7 +360,7 @@ extension TrackerFormViewController: UITableViewDataSource {
         guard let listCell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier) as? ListCell
         else { return UITableViewCell() }
 
-        var position: ListItem.Position
+        var position: ListItemView.Position
         var value: String? = nil
 
         if data.schedule == nil {
@@ -382,7 +382,8 @@ extension TrackerFormViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let categoriesViewController = CategoriesViewController(selectedCategory: category)
+          let categoriesViewController = CategoriesAssembly().buildModule(selectedCategory: category)
+          //CategoriesViewController(selectedCategory: category)
             categoriesViewController.delegate = self
             let navigationController = UINavigationController(rootViewController: categoriesViewController)
             navigationController.isModalInPresentation = true
@@ -399,7 +400,7 @@ extension TrackerFormViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        ListItem.height
+        ListItemView.height
     }
 }
 
