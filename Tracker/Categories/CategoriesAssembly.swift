@@ -8,17 +8,15 @@
 import UIKit
 
 protocol CategoriesAssemblyProtocol {
-  func buildModule(selectedCategory: TrackerCategory?) -> CategoriesViewController
+    func buildModule(selectedCategory: TrackerCategory?) -> CategoriesViewController
 }
 
 final class CategoriesAssembly: CategoriesAssemblyProtocol {
-  func buildModule(selectedCategory: TrackerCategory?) -> CategoriesViewController {
-    let view = CategoriesViewController()
-    let viewModel = CategoriesViewModel(selectedCategory: selectedCategory,
-                                        view: view)
-
-    view.viewModel = viewModel
-    return view
-  }
+    func buildModule(selectedCategory: TrackerCategory?) -> CategoriesViewController {
+        let viewModel = CategoriesViewModel(selectedCategory: selectedCategory)
+        let view = CategoriesViewController(viewModel: viewModel)
+        viewModel.view = view
+        return view
+    }
 }
 

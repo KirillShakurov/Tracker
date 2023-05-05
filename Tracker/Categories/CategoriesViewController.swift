@@ -37,11 +37,12 @@ final class CategoriesViewController: UIViewController {
     // MARK: - Properties
     
     weak var delegate: CategoriesViewControllerDelegate?
-    var viewModel: CategoriesViewModel?
+    private let viewModel: CategoriesViewModel
 
     // MARK: - Lifecycle
 
-    init() {
+    init(viewModel: CategoriesViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -53,7 +54,7 @@ final class CategoriesViewController: UIViewController {
         super.viewDidLoad()
         setupContent()
         setupConstraints()
-        viewModel?.didLoadView()
+        viewModel.didLoadView()
     }
     
     // MARK: - Actions
@@ -77,8 +78,8 @@ private extension CategoriesViewController {
         view.addSubview(addButton)
         view.addSubview(notFoundView)
         
-        categoriesTableView.dataSource = viewModel
-        categoriesTableView.delegate = viewModel
+        categoriesTableView.dataSource = self
+        categoriesTableView.delegate = self
     }
     
     func setupConstraints() {
@@ -99,13 +100,36 @@ private extension CategoriesViewController {
             notFoundView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
     }
+
+    private func editCategory(_ category: TrackerCategory) {
+        let addCategoryViewController = CategoryFormViewController(data: category.data)
+        addCategoryViewController.delegate = viewModel
+        let navigationController = UINavigationController(rootViewController: addCategoryViewController)
+        present(navigationController, animated: true)
+    }
+
+
+    private func showDeleteAlert(_ category: TrackerCategory) {
+        let alert = UIAlertController(
+            title: nil,
+            message: "Эта категория точно не нужна?",
+            preferredStyle: .actionSheet
+        )
+        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
+            self?.viewModel.deleteCategory(category)
+        }
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - CategoriesViewModelDelegate
 
 extension CategoriesViewController: CategoriesViewModelDelegate {
     func didUpdateCategories() {
-        guard let viewModel = viewModel else { return }
         notFoundView.isHidden =  !viewModel.categories.isEmpty
         categoriesTableView.reloadData()
     }
@@ -114,5 +138,49 @@ extension CategoriesViewController: CategoriesViewModelDelegate {
         delegate?.didConfirm(category)
     }
 }
+
+
+// MARK: - UITableViewDataSource
+extension CategoriesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.categories.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        viewModel.configureCell(tableView: tableView, indexPath)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension CategoriesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        ListItemView.height
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.selectCategory(at: indexPath)
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        let category = viewModel.categories[indexPath.row]
+
+        return UIContextMenuConfiguration(actionProvider:  { _ in
+            UIMenu(children: [
+                UIAction(title: "Редактировать") { [weak self] _ in
+                    self?.editCategory(category)
+                },
+                UIAction(title: "Удалить", attributes: .destructive) { [weak self] _ in
+                    self?.showDeleteAlert(category)
+                }
+            ])
+        })
+    }
+
+}
+
 
 
