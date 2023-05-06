@@ -5,19 +5,16 @@
 //  Created by Kirill on 02.05.2023.
 //
 
-import UIKit
-
 protocol CategoriesViewModelDelegate: AnyObject {
     func didUpdateCategories()
     func didSelectCategory(_ category: TrackerCategory)
+    func dismiss()
 }
 
 final class CategoriesViewModel {
     
     // MARK: - Public properties
     weak var delegate: CategoriesViewModelDelegate?
-
-    weak var view: CategoriesViewController?
 
     // MARK: - Private properties
     private let trackerCategoryStore = TrackerCategoryStore()
@@ -44,7 +41,6 @@ final class CategoriesViewModel {
     // MARK: - Public
 
     func didLoadView() {
-        delegate = view
         loadCategories()
     }
     
@@ -52,8 +48,8 @@ final class CategoriesViewModel {
         categories = getCategoriesFromStore()
     }
     
-    func selectCategory(at indexPath: IndexPath) {
-        selectedCategory = categories[indexPath.row]
+    func selectCategory(at index: Int) {
+        selectedCategory = categories[index]
     }
     
     func handleCategoryFormConfirm(data: TrackerCategory.Data) {
@@ -73,20 +69,13 @@ final class CategoriesViewModel {
         }
     }
 
-    func configureCell(tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.identifier) as? CategoryCell else { return UITableViewCell() }
-        let category = categories[indexPath.row]
-        categoryCell.configure(with: category.label,
-                               isSelected: selectedCategory == category,
-                               position: getPosition(indexPath: indexPath))
-        return categoryCell
+    func getCategory(for index: Int) -> TrackerCategory {
+        categories[index]
     }
 
-    // MARK: - Private
-
-    private func getPosition(indexPath: IndexPath) -> ListItemView.Position {
+    func getPosition(for index: Int) -> ListItemView.Position {
         var position: ListItemView.Position
-        switch indexPath.row {
+        switch index {
         case 0:
             position = categories.count == 1 ? .alone : .first
         case categories.count - 1:
@@ -96,6 +85,8 @@ final class CategoriesViewModel {
         }
         return position
     }
+
+    // MARK: - Private
 
     private func getCategoriesFromStore() -> [TrackerCategory] {
         do {
@@ -132,7 +123,7 @@ extension CategoriesViewModel: TrackerCategoryStoreDelegate {
 extension CategoriesViewModel: CategoryFormViewControllerDelegate {
     func didConfirm(_ data: TrackerCategory.Data) {
         handleCategoryFormConfirm(data: data)
-        view?.dismiss(animated: true)
+        delegate?.dismiss()
     }
 }
 

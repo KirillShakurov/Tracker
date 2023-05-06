@@ -137,6 +137,10 @@ extension CategoriesViewController: CategoriesViewModelDelegate {
     func didSelectCategory(_ category: TrackerCategory) {
         delegate?.didConfirm(category)
     }
+
+    func dismiss() {
+        dismiss(animated: true)
+    }
 }
 
 
@@ -147,7 +151,14 @@ extension CategoriesViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        viewModel.configureCell(tableView: tableView, indexPath)
+        guard let categoryCell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.identifier) as? CategoryCell else { return UITableViewCell() }
+        let category = viewModel.getCategory(for: indexPath.row)
+        let position = viewModel.getPosition(for: indexPath.row)
+        categoryCell.configure(with: category.label,
+                               isSelected: viewModel.selectedCategory == category,
+                               position: position)
+
+        return categoryCell
     }
 }
 
@@ -158,7 +169,7 @@ extension CategoriesViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.selectCategory(at: indexPath)
+        viewModel.selectCategory(at: indexPath.row)
     }
 
     func tableView(
@@ -181,6 +192,7 @@ extension CategoriesViewController: UITableViewDelegate {
     }
 
 }
+
 
 
 

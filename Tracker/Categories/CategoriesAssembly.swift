@@ -15,7 +15,7 @@ final class CategoriesAssembly: CategoriesAssemblyProtocol {
     func buildModule(selectedCategory: TrackerCategory?) -> CategoriesViewController {
         let viewModel = CategoriesViewModel(selectedCategory: selectedCategory)
         let view = CategoriesViewController(viewModel: viewModel)
-        viewModel.view = view
+        viewModel.delegate = view
         return view
     }
 }
