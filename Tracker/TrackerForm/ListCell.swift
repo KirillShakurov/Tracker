@@ -10,7 +10,7 @@ import UIKit
 final class ListCell: UITableViewCell {
     // MARK: - Layout elements
     
-    private lazy var listItem = ListItem()
+    private lazy var listItem = ListItemView()
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ final class ListCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func configure(label: String, value: String?, position: ListItem.Position) {
+    func configure(label: String, value: String?, position: ListItemView.Position) {
         listItem.configure(with: position)
         nameLabel.text = label
         

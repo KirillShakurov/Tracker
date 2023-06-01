@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ListItem: UIView {
+final class ListItemView: UIView {
     // MARK: - Layout elements
     
     private let border: UIView = {
@@ -31,7 +31,7 @@ final class ListItem: UIView {
     
     // MARK: - Methods
     
-    func configure(with position: Position = .middle) {
+    func configure(with position: Position) {
         layer.masksToBounds = true
         layer.cornerRadius = 10
         
@@ -45,7 +45,13 @@ final class ListItem: UIView {
         case .last:
             layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         case .alone:
-            break
+            border.isHidden = true
+            layer.maskedCorners = [
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner,
+                .layerMinXMinYCorner,
+                .layerMaxXMinYCorner
+            ]
         }
     }
     
@@ -65,7 +71,7 @@ final class ListItem: UIView {
     }
 }
 
-extension ListItem {
+extension ListItemView {
     enum Position {
         case first, middle, last, alone
     }

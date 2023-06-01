@@ -14,7 +14,7 @@ protocol WeekdayCellDelegate: AnyObject {
 final class WeekdayCell: UITableViewCell {
     // MARK: - Layout elements
     
-    private lazy var listItem = ListItem()
+    private lazy var listItem = ListItemView()
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ final class WeekdayCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func configure(with weekday: Weekday, isSelected: Bool, position: ListItem.Position) {
+    func configure(with weekday: Weekday, isSelected: Bool, position: ListItemView.Position) {
         self.weekday = weekday
         listItem.configure(with: position)
         nameLabel.text = weekday.rawValue
@@ -82,7 +82,7 @@ private extension WeekdayCell {
             listItem.topAnchor.constraint(equalTo: contentView.topAnchor),
             listItem.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             listItem.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            // labelsStack
+            // nameLabel
             nameLabel.leadingAnchor.constraint(equalTo: listItem.leadingAnchor, constant: 16),
             nameLabel.centerYAnchor.constraint(equalTo: listItem.centerYAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: listItem.trailingAnchor, constant: -83),
