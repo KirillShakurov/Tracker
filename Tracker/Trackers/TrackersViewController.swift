@@ -9,11 +9,16 @@ import UIKit
 
 final class TrackersViewController: UIViewController {
     // MARK: - Layout elements
+
+    enum Constants {
+        static let mainTitle = "MainScreen.MainTitle".localized()
+        static let filterButtonTitle = "MainScreen.Filters.Title".localized()
+    }
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Трекеры"
+        label.text = Constants.mainTitle
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
         return label
     }()
@@ -77,7 +82,7 @@ final class TrackersViewController: UIViewController {
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Фильтры", for: .normal)
+        button.setTitle(Constants.filterButtonTitle, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         button.tintColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         button.layer.cornerRadius = 16
@@ -121,10 +126,15 @@ final class TrackersViewController: UIViewController {
         
         trackerRecordStore.delegate = self
         trackerStore.delegate = self
-        
+
+        loadData()
+
+    }
+
+    func loadData() {
         try? trackerStore.loadFilteredTrackers(date: currentDate, searchString: searchText)
         try? trackerRecordStore.loadCompletedTrackers(by: currentDate)
-        
+
         checkNumberOfTrackers()
     }
 
@@ -218,8 +228,70 @@ private extension TrackersViewController {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDelegate
+extension TrackersViewController {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
 
+        let identifier = NSString(string: "cell\(indexPath.item)")
+
+        if let cell = collectionView.cellForItem(at: indexPath) as? TrackerCell {
+            return UIContextMenuConfiguration(identifier: identifier, previewProvider: {
+                return TrackersCellPreviewViewController(previewView: cell.getPreviewView())
+            }, actionProvider: { suggestedActions in
+                return self.makeTrackerCellMenu(for: cell)
+            })
+        }
+        return nil
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        guard let identifier = configuration.identifier as? String else { return }
+        let id = identifier.replacingOccurrences(of: "cell", with: "")
+        guard let item = Int(id) else { return }
+
+        animator.addCompletion {
+
+            let indexPath = IndexPath(item: item, section: 0)
+            if let cell = collectionView.cellForItem(at: indexPath) as? TrackerCell {
+                let viewController = TrackersCellPreviewViewController(previewView: cell.getPreviewView())
+                self.show(viewController, sender: self)
+            }
+        }
+    }
+
+    func makeTrackerCellMenu(for cell: TrackerCell) -> UIMenu {
+        let pinTitle = (cell.tracker?.isPinned ?? false) ? "Открепить" : "Закрепить"
+        let share = UIAction(title: pinTitle) { action in
+            if var tracker = cell.tracker {
+                tracker.isPinned = !tracker.isPinned
+                try? self.trackerStore.updateTracker(tracker)
+//                cell.pin(tracker.isPinned)
+                self.loadData()
+            }
+        }
+
+        let rename = UIAction(title: "Редактировать") { action in
+            if let tracker = cell.tracker {
+                self.didSelectTracker(with: .habit, tracker: tracker, mode: .edit)
+            }
+        }
+
+        let delete = UIAction(title: "Удалить", attributes: .destructive) { action in
+            if let tracker = cell.tracker {
+                self.removeTracker(tracker)
+            }
+        }
+
+        return UIMenu(title: "", children: [share, rename, delete])
+    }
+
+    func removeTracker(_ tracker: Tracker) {
+        try? trackerStore.deleteTracker(tracker)
+        loadData()
+    }
+}
+
+// MARK: - UICollectionViewDataSource
 extension TrackersViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         trackerStore.numberOfSections
@@ -362,9 +434,14 @@ extension TrackersViewController: TrackerCellDelegate {
 // MARK: - AddTrackerViewControllerDelegate
 
 extension TrackersViewController: AddTrackerViewControllerDelegate {
-    func didSelectTracker(with type: AddTrackerViewController.TrackerType) {
+    func didSelectTracker(with type: AddTrackerViewController.TrackerType,
+                          tracker: Tracker?,
+                          mode: TrackerFormViewMode = .new) {
         dismiss(animated: true)
-        let trackerFormViewController = TrackerFormViewController(type: type)
+        let type: AddTrackerViewController.TrackerType = tracker?.schedule == nil ? .irregularEvent : .habit
+        let trackerFormViewController = TrackerFormViewController(type: type,
+                                                                  tracker: tracker,
+                                                                  mode: mode)
         trackerFormViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: trackerFormViewController)
         navigationController.isModalInPresentation = true
@@ -375,9 +452,17 @@ extension TrackersViewController: AddTrackerViewControllerDelegate {
 // MARK: - TrackerFormViewControllerDelegate
 
 extension TrackersViewController: TrackerFormViewControllerDelegate {
-    func didTapConfirmButton(category: TrackerCategory, trackerToAdd: Tracker) {
+    func didTapConfirmButton(tracker: Tracker, mode: TrackerFormViewMode) {
         dismiss(animated: true)
-        try? trackerStore.addTracker(trackerToAdd, with: category)
+
+        switch mode {
+        case .new:
+            try? trackerStore.addTracker(tracker)
+        case .edit:
+            try? trackerStore.updateTracker(tracker)
+        }
+
+        loadData()
     }
     
     func didTapCancelButton() {

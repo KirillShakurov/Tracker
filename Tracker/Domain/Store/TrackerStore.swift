@@ -18,7 +18,9 @@ protocol TrackerStoreProtocol {
     func numberOfRowsInSection(_ section: Int) -> Int
     func headerLabelInSection(_ section: Int) -> String?
     func tracker(at indexPath: IndexPath) -> Tracker?
-    func addTracker(_ tracker: Tracker, with category: TrackerCategory) throws
+    func addTracker(_ tracker: Tracker) throws
+    func updateTracker(_ tracker: Tracker) throws
+    func deleteTracker(_ tracker: Tracker) throws
 }
 
 final class TrackerStore: NSObject {
@@ -34,6 +36,7 @@ final class TrackerStore: NSObject {
         let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(keyPath: \TrackerCoreData.category?.categoryId, ascending: true),
+            NSSortDescriptor(keyPath: \TrackerCoreData.isPinned, ascending: false),
             NSSortDescriptor(keyPath: \TrackerCoreData.createdAt, ascending: true)
         ]
         let fetchedResultsController = NSFetchedResultsController(
@@ -73,13 +76,20 @@ final class TrackerStore: NSObject {
         let color = uiColorMarshalling.color(from: colorHEX)
         let scheduleString = coreData.schedule
         let schedule = Weekday.decode(from: scheduleString)
+        var categoryId: UUID? = nil
+        if let catString = coreData.category?.categoryId,
+           let categoryUUID = UUID(uuidString: catString) {
+            categoryId = categoryUUID
+        }
         return Tracker(
             id: id,
             label: label,
             emoji: emoji,
             color: color,
             completedDaysCount: completedDaysCount.count,
-            schedule: schedule
+            schedule: schedule,
+            categoryId: categoryId,
+            isPinned: coreData.isPinned
         )
     }
     
@@ -124,8 +134,6 @@ final class TrackerStore: NSObject {
         fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         try fetchedResultsController.performFetch()
-        
-        delegate?.didUpdate()
     }
 }
 
@@ -164,9 +172,21 @@ extension TrackerStore: TrackerStoreProtocol {
             return nil
         }
     }
-    
-    func addTracker(_ tracker: Tracker, with category: TrackerCategory) throws {
-        let categoryCoreData = try trackerCategoryStore.categoryCoreData(with: category.id)
+
+    func updateTracker(_ tracker: Tracker) throws {
+        try deleteTracker(tracker)
+        try addTracker(tracker)
+    }
+
+    func deleteTracker(_ tracker: Tracker) throws {
+        guard let trackerToDelete = try? getTrackerCoreData(by: tracker.id) else { return }
+        context.delete(trackerToDelete)
+        try context.save()
+    }
+
+    func addTracker(_ tracker: Tracker) throws {
+        guard let categoryId = tracker.categoryId else { return }
+        let categoryCoreData = try trackerCategoryStore.categoryCoreData(with: categoryId)
         let trackerCoreData = TrackerCoreData(context: context)
         trackerCoreData.trackerId = tracker.id.uuidString
         trackerCoreData.createdAt = Date()
@@ -175,6 +195,7 @@ extension TrackerStore: TrackerStoreProtocol {
         trackerCoreData.colorHEX = uiColorMarshalling.makeHEX(from: tracker.color)
         trackerCoreData.schedule = Weekday.code(tracker.schedule)
         trackerCoreData.category = categoryCoreData
+        trackerCoreData.isPinned = tracker.isPinned
         try context.save()
     }
 }

@@ -9,7 +9,12 @@ import UIKit
 
 protocol TrackerFormViewControllerDelegate: AnyObject {
     func didTapCancelButton()
-    func didTapConfirmButton(category: TrackerCategory, trackerToAdd: Tracker)
+    func didTapConfirmButton(tracker: Tracker, mode: TrackerFormViewMode)
+}
+
+enum TrackerFormViewMode {
+    case new
+    case edit
 }
 
 final class TrackerFormViewController: UIViewController {
@@ -78,7 +83,7 @@ final class TrackerFormViewController: UIViewController {
         return button
     }()
     private lazy var confirmButton: UIButton = {
-        let button = Button(title: "Создать")
+        let button = Button(title: mode == .new ? "Создать" : "Сохранить")
         button.addTarget(self, action: #selector(didTapConfirmButton), for: .touchUpInside)
         button.isEnabled = false
         return button
@@ -160,16 +165,16 @@ final class TrackerFormViewController: UIViewController {
     )
     
     // MARK: - Lifecycle
-    
-    init(type: AddTrackerViewController.TrackerType, data: Tracker.Data = Tracker.Data()) {
+    let mode: TrackerFormViewMode
+    let tracker: Tracker?
+    init(type: AddTrackerViewController.TrackerType,
+         tracker: Tracker? = nil,
+         mode: TrackerFormViewMode = .new
+    ) {
         self.type = type
-        self.data = data
-        switch type {
-        case .habit:
-            self.data.schedule = []
-        case .irregularEvent:
-            self.data.schedule = nil
-        }
+        self.data = tracker?.data ?? Tracker.Data()
+        self.tracker = tracker
+        self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -186,11 +191,29 @@ final class TrackerFormViewController: UIViewController {
         
         setupContent()
         setupConstraints()
-        
+
+        setData()
         checkFormValidation()
     }
     
     // MARK: - Actions
+    private func setData() {
+        guard mode == .edit else {
+            switch type {
+            case .habit:
+                self.data.schedule = []
+            case .irregularEvent:
+                self.data.schedule = nil
+            }
+            return
+        }
+        if let uuid = tracker?.categoryId {
+            let s = try? trackerCategoryStore.categoryCoreData(with: uuid)
+            category = TrackerCategory(id: uuid, label: s?.label ?? "")
+        }
+
+        textField.text = data.label
+    }
     
     @objc
     private func didChangedLabelTextField(_ sender: UITextField) {
@@ -211,16 +234,33 @@ final class TrackerFormViewController: UIViewController {
     @objc
     private func didTapConfirmButton() {
         guard let category, let emoji = data.emoji, let color = data.color else { return }
-        
-        let newTracker = Tracker(
-            label: data.label,
-            emoji: emoji,
-            color: color,
-            completedDaysCount: 0,
-            schedule: data.schedule
-        )
-        
-        delegate?.didTapConfirmButton(category: category, trackerToAdd: newTracker)
+
+        switch mode {
+        case .new:
+            let newTracker = Tracker(
+                label: data.label,
+                emoji: emoji,
+                color: color,
+                completedDaysCount: 0,
+                schedule: data.schedule,
+                categoryId: category.id
+            )
+
+            delegate?.didTapConfirmButton(tracker: newTracker, mode: mode)
+
+        case .edit:
+            guard let tracker = tracker else { return }
+            let newTracker = Tracker(
+                id: tracker.id,
+                label: data.label,
+                emoji: emoji,
+                color: color,
+                completedDaysCount: 0,
+                schedule: data.schedule,
+                categoryId: category.id
+            )
+            delegate?.didTapConfirmButton(tracker: newTracker, mode: mode)
+        }
     }
     
     // MARK: - Methods
@@ -254,9 +294,16 @@ final class TrackerFormViewController: UIViewController {
 
 private extension TrackerFormViewController {
     func setupContent() {
-        switch type {
-        case .habit: title = "Новая привычка"
-        case .irregularEvent: title = "Новое нерегулярное событие"
+        if mode == .edit {
+            switch type {
+            case .habit: title = "Редактирование привычки"
+            case .irregularEvent: title = "Редактирование события"
+            }
+        } else {
+            switch type {
+            case .habit: title = "Новая привычка"
+            case .irregularEvent: title = "Новое нерегулярное событие"
+            }
         }
         
         textField.delegate = self
@@ -383,7 +430,6 @@ extension TrackerFormViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
           let categoriesViewController = CategoriesAssembly().buildModule(selectedCategory: category)
-          //CategoriesViewController(selectedCategory: category)
             categoriesViewController.delegate = self
             let navigationController = UINavigationController(rootViewController: categoriesViewController)
             navigationController.isModalInPresentation = true
@@ -440,12 +486,19 @@ extension TrackerFormViewController: UICollectionViewDataSource {
         case emojisCollection:
             guard let emojiCell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiCell.identifier, for: indexPath) as? EmojiCell else { return UICollectionViewCell() }
             let emoji = emojis[indexPath.row]
+            if emoji == data.emoji {
+                emojiCell.select()
+            }
             emojiCell.configure(with: emoji)
             return emojiCell
         case colorsCollection:
             guard let colorCell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorCell.identifier, for: indexPath) as? ColorCell else { return UICollectionViewCell() }
             let color = colors[indexPath.row]
             colorCell.configure(with: color)
+            let ui = UIColorMarshalling()
+            if let dataColor = data.color, ui.makeHEX(from: color) == ui.makeHEX(from: dataColor) {
+                colorCell.select()
+            }
             return colorCell
         default:
             return UICollectionViewCell()
@@ -463,6 +516,7 @@ extension TrackerFormViewController: UICollectionViewDelegate {
         case colorsCollection: data.color = colors[indexPath.row]
         default: break
         }
+        collectionView.visibleCells.forEach( {($0 as? SelectionCellProtocol)?.deselect()})
         cell.select()
     }
     

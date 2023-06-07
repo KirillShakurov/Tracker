@@ -8,6 +8,10 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
+    enum Constants {
+        static let trackersTabTitle = "MainScreen.Trackers.Title".localized()
+        static let statisticsTabTitle = "MainScreen.Statistics.Title".localized()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,12 +23,12 @@ final class TabBarController: UITabBarController {
         let statisticsViewController = StatisticsViewController()
         
         trackersViewController.tabBarItem = UITabBarItem(
-            title: "Трекеры",
+            title: Constants.trackersTabTitle,
             image: UIImage(systemName: "record.circle.fill"),
             selectedImage: nil
         )
         statisticsViewController.tabBarItem = UITabBarItem(
-            title: "Статистика",
+            title: Constants.statisticsTabTitle,
             image: UIImage(systemName: "hare.fill"),
             selectedImage: nil
         )

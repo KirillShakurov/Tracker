@@ -13,6 +13,10 @@
 		0215C4162A010B2A00E2C6B0 /* CategoryFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4152A010B2A00E2C6B0 /* CategoryFormViewController.swift */; };
 		0215C4182A010CBF00E2C6B0 /* NotFoundStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4172A010CBF00E2C6B0 /* NotFoundStack.swift */; };
 		0215C41A2A010D3700E2C6B0 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0215C4192A010D3700E2C6B0 /* UIViewController+Extensions.swift */; };
+		021AA0842A310B5500A8E654 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 021AA0862A310B5500A8E654 /* Localizable.strings */; };
+		021AA0892A310CB800A8E654 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA0882A310CB800A8E654 /* String+Extensions.swift */; };
+		021AA08B2A310D6E00A8E654 /* TrackersCellPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA08A2A310D6E00A8E654 /* TrackersCellPreviewViewController.swift */; };
+		021AA08D2A310DA400A8E654 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA08C2A310DA400A8E654 /* NSObject+Extensions.swift */; };
 		024D0D192A03BAF900C49E4E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024D0D182A03BAF900C49E4E /* UIImage+Extensions.swift */; };
 		024D0D1B2A03BBA500C49E4E /* CategoriesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024D0D1A2A03BBA500C49E4E /* CategoriesAssembly.swift */; };
 		02571B8929D5F6C90075B563 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02571B8829D5F6C90075B563 /* TabBarController.swift */; };
@@ -64,6 +68,12 @@
 		0215C4152A010B2A00E2C6B0 /* CategoryFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFormViewController.swift; sourceTree = "<group>"; };
 		0215C4172A010CBF00E2C6B0 /* NotFoundStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundStack.swift; sourceTree = "<group>"; };
 		0215C4192A010D3700E2C6B0 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		021AA07C2A310A9D00A8E654 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		021AA0852A310B5500A8E654 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		021AA0872A310B5800A8E654 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		021AA0882A310CB800A8E654 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		021AA08A2A310D6E00A8E654 /* TrackersCellPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackersCellPreviewViewController.swift; sourceTree = "<group>"; };
+		021AA08C2A310DA400A8E654 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
 		024D0D182A03BAF900C49E4E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		024D0D1A2A03BBA500C49E4E /* CategoriesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesAssembly.swift; sourceTree = "<group>"; };
 		02571B8829D5F6C90075B563 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -158,6 +168,7 @@
 		02571B8F29D5F73D0075B563 /* Trackers */ = {
 			isa = PBXGroup;
 			children = (
+				021AA08A2A310D6E00A8E654 /* TrackersCellPreviewViewController.swift */,
 				02571B9029D5F74B0075B563 /* TrackersViewController.swift */,
 				02571B9229D5F7630075B563 /* TrackerCell.swift */,
 				02571B9429D5F7770075B563 /* TrackerCategoryLabel.swift */,
@@ -195,6 +206,8 @@
 		02571BA729D5F8560075B563 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				021AA08C2A310DA400A8E654 /* NSObject+Extensions.swift */,
+				021AA0882A310CB800A8E654 /* String+Extensions.swift */,
 				02571BA829D5F8620075B563 /* Date+Extensions.swift */,
 				02571BAA29D5F8740075B563 /* UIColor+Extenstions.swift */,
 				02571BAC29D5F8890075B563 /* Int+Extensions.swift */,
@@ -268,6 +281,7 @@
 		02E6337329D08D2A00817892 = {
 			isa = PBXGroup;
 			children = (
+				021AA0862A310B5500A8E654 /* Localizable.strings */,
 				02E6337E29D08D2A00817892 /* Tracker */,
 				02E6337D29D08D2A00817892 /* Products */,
 				DCF746AE1FBA3D7E177D0F20 /* Pods */,
@@ -378,6 +392,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"ru-RU",
 			);
 			mainGroup = 02E6337329D08D2A00817892;
 			productRefGroup = 02E6337D29D08D2A00817892 /* Products */;
@@ -395,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02E6338C29D08D2A00817892 /* LaunchScreen.storyboard in Resources */,
+				021AA0842A310B5500A8E654 /* Localizable.strings in Resources */,
 				02E6338929D08D2A00817892 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +481,7 @@
 				024D0D1B2A03BBA500C49E4E /* CategoriesAssembly.swift in Sources */,
 				02571B9829D5F7950075B563 /* StatisticsViewController.swift in Sources */,
 				02B9EDF929DCA1A000436D09 /* Constants.swift in Sources */,
+				021AA08B2A310D6E00A8E654 /* TrackersCellPreviewViewController.swift in Sources */,
 				027F480529F6ECD600919922 /* OnboardingPageViewController.swift in Sources */,
 				02571B9B29D5F7B20075B563 /* AddTrackerViewController.swift in Sources */,
 				02571B8C29D5F7030075B563 /* Button.swift in Sources */,
@@ -486,10 +503,12 @@
 				02D0273C29E43E730074873A /* SelectionCellProtocol.swift in Sources */,
 				02B9EDF029DCA0D600436D09 /* SelectionTitle.swift in Sources */,
 				02571B8929D5F6C90075B563 /* TabBarController.swift in Sources */,
+				021AA08D2A310DA400A8E654 /* NSObject+Extensions.swift in Sources */,
 				025D250D29EDB78600218ECF /* TrackerCategoryStore.swift in Sources */,
 				02571B8E29D5F71D0075B563 /* TextField.swift in Sources */,
 				02E6338029D08D2A00817892 /* AppDelegate.swift in Sources */,
 				0215C4182A010CBF00E2C6B0 /* NotFoundStack.swift in Sources */,
+				021AA0892A310CB800A8E654 /* String+Extensions.swift in Sources */,
 				027F480029F6EBBB00919922 /* UserDefaultsBacked.swift in Sources */,
 				0215C4122A010AE900E2C6B0 /* CategoriesViewModel.swift in Sources */,
 				02E6338229D08D2A00817892 /* SceneDelegate.swift in Sources */,
@@ -499,10 +518,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		021AA0862A310B5500A8E654 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				021AA0852A310B5500A8E654 /* en */,
+				021AA0872A310B5800A8E654 /* ru-RU */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		02E6338A29D08D2A00817892 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				02E6338B29D08D2A00817892 /* Base */,
+				021AA07C2A310A9D00A8E654 /* ru-RU */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -514,6 +543,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -574,6 +604,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

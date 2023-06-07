@@ -8,7 +8,9 @@
 import UIKit
 
 protocol AddTrackerViewControllerDelegate: AnyObject {
-    func didSelectTracker(with: AddTrackerViewController.TrackerType)
+    func didSelectTracker(with type: AddTrackerViewController.TrackerType,
+                          tracker: Tracker?,
+                          mode: TrackerFormViewMode)
 }
 
 final class AddTrackerViewController: UIViewController {
@@ -69,12 +71,16 @@ final class AddTrackerViewController: UIViewController {
     @objc
     private func didTapAddHabitButton() {
         title = "Новая привычка"
-        delegate?.didSelectTracker(with: .habit)
+        delegate?.didSelectTracker(with: .habit,
+                                   tracker: nil,
+                                   mode: .new)
     }
     
     @objc
     private func didTapAddIrregularEventButton() {
-        delegate?.didSelectTracker(with: .irregularEvent)
+        delegate?.didSelectTracker(with: .irregularEvent,
+                                   tracker: nil,
+                                   mode: .new)
     }
 }
 

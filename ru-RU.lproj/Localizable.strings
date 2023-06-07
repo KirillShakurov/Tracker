@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Kirill on 08.06.2023.
+  
+*/
+
+"MainScreen.MainTitle" = "Трекеры";
+"MainScreen.Filters.Title" = "Фильтры";
+"MainScreen.Trackers.Title" = "Трекеры";
+"MainScreen.Statistics.Title" = "Статистика";
+
+"OfDay" = "дня";
+"Day" = "день";
+"Days" = "дней";
