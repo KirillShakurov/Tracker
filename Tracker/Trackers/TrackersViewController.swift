@@ -113,7 +113,7 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AnalyticService.shared.sendEvent(event: .open)
         hideKeyboardWhenTappedAround()
         
         setupContent()
@@ -127,6 +127,11 @@ final class TrackersViewController: UIViewController {
         
         checkNumberOfTrackers()
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        AnalyticService.shared.sendEvent(event: .close)
+    }
     
     // MARK: - Actions
     
@@ -136,6 +141,7 @@ final class TrackersViewController: UIViewController {
         addTrackerViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: addTrackerViewController)
         present(navigationController, animated: true)
+        AnalyticService.shared.sendEvent(event: .click, parameters: ["item": "add_track"])
     }
     
     @objc
@@ -396,5 +402,3 @@ extension TrackersViewController: TrackerRecordStoreDelegate {
         completedTrackers = records
     }
 }
-
-

@@ -13,9 +13,21 @@ protocol TrackerCellDelegate: AnyObject {
 
 final class TrackerCell: UICollectionViewCell {
     // MARK: - Layout elements
-    
-    private let cardView: UIView = {
+    var identifier = ""
+    let billetView: UIView = {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 16
+        //				view.layer.borderColor = UIColor(red: 174 / 255, green: 175 / 255, blue: 180 / 255, alpha: 0.3).cgColor
+        //				view.layer.borderWidth = 1
+        view.layer.masksToBounds = true
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    let cardView: UIView = {
+        let view = UIView()
+        view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
         view.layer.borderColor = UIColor(red: 174 / 255, green: 175 / 255, blue: 180 / 255, alpha: 0.3).cgColor
@@ -103,6 +115,7 @@ final class TrackerCell: UICollectionViewCell {
         self.tracker = tracker
         self.days = days
         cardView.backgroundColor = tracker.color
+        billetView.backgroundColor = tracker.color
         emoji.text = tracker.emoji
         trackerLabel.text = tracker.label
         completeButton.backgroundColor = tracker.color
@@ -117,6 +130,7 @@ final class TrackerCell: UICollectionViewCell {
             completeButton.setImage(UIImage(systemName: "plus"), for: .normal)
             completeButton.layer.opacity = 1
         }
+        AnalyticService.shared.sendEvent(event: .click, parameters: ["item": "track"])
     }
     
     func increaseCount() {
@@ -140,10 +154,14 @@ final class TrackerCell: UICollectionViewCell {
 
 private extension TrackerCell {
     func setupContent() {
-        contentView.addSubview(cardView)
-        contentView.addSubview(iconView)
-        contentView.addSubview(emoji)
-        contentView.addSubview(trackerLabel)
+        contentView.addSubview(billetView)
+        billetView.addSubview(cardView)
+        billetView.addSubview(iconView)
+        billetView.addSubview(emoji)
+        //        contentView.addSubview(cardView)
+        //        contentView.addSubview(iconView)
+        //        contentView.addSubview(emoji)
+        billetView.addSubview(trackerLabel)
         contentView.addSubview(daysCountLabel)
         contentView.addSubview(completeButton)
     }
@@ -151,9 +169,14 @@ private extension TrackerCell {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             // cardView
-            cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cardView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            billetView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
+            billetView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            billetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2),
+            billetView.heightAnchor.constraint(equalToConstant: 90),
+
+            cardView.leadingAnchor.constraint(equalTo: billetView.leadingAnchor),
+            cardView.topAnchor.constraint(equalTo: billetView.topAnchor),
+            cardView.trailingAnchor.constraint(equalTo: billetView.trailingAnchor),
             cardView.heightAnchor.constraint(equalToConstant: 90),
             // iconView
             iconView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 12),
