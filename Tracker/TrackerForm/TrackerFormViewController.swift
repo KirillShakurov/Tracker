@@ -175,6 +175,13 @@ final class TrackerFormViewController: UIViewController {
         self.data = tracker?.data ?? Tracker.Data()
         self.tracker = tracker
         self.mode = mode
+
+        switch type {
+        case .habit:
+            self.data.schedule = []
+        case .irregularEvent:
+            self.data.schedule = nil
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -207,6 +214,7 @@ final class TrackerFormViewController: UIViewController {
             }
             return
         }
+
         if let uuid = tracker?.categoryId {
             let s = try? trackerCategoryStore.categoryCoreData(with: uuid)
             category = TrackerCategory(id: uuid, label: s?.label ?? "")

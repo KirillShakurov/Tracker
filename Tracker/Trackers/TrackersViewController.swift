@@ -437,15 +437,18 @@ extension TrackersViewController: AddTrackerViewControllerDelegate {
     func didSelectTracker(with type: AddTrackerViewController.TrackerType,
                           tracker: Tracker?,
                           mode: TrackerFormViewMode = .new) {
-        dismiss(animated: true)
-        let type: AddTrackerViewController.TrackerType = tracker?.schedule == nil ? .irregularEvent : .habit
-        let trackerFormViewController = TrackerFormViewController(type: type,
+        let editType: AddTrackerViewController.TrackerType = tracker?.schedule == nil ? .irregularEvent : .habit
+
+        let newtype = mode == .new ? type : editType
+        let trackerFormViewController = TrackerFormViewController(type: newtype,
                                                                   tracker: tracker,
                                                                   mode: mode)
         trackerFormViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: trackerFormViewController)
         navigationController.isModalInPresentation = true
-        present(navigationController, animated: true)
+        dismiss(animated: true) {
+            self.present(navigationController, animated: true)
+        }
     }
 }
 
