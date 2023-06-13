@@ -2,12 +2,11 @@
 //  AppDelegate.swift
 //  Tracker
 //
-//  Created by Kirill on 26.03.2023.
+//  Created by Kirill on 23.03.2023.
 //
 
 import UIKit
 import CoreData
-import YandexMobileMetrica
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,11 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if let configuration = YMMYandexMetricaConfiguration.init(apiKey: "b7747b13-adca-4da0-b048-e5147fc69f9a") {
-            YMMYandexMetrica.activate(with: configuration)
-        }
-
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        AnalyticsService.activate()
         return true
     }
 
@@ -43,3 +42,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
+

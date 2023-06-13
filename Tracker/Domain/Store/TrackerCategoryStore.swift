@@ -2,9 +2,8 @@
 //  TrackerCategoryStore.swift
 //  Tracker
 //
-//  Created by Kirill on 17.04.2023.
+//  Created by Kirill on 11.04.2023.
 //
-
 
 import UIKit
 import CoreData
