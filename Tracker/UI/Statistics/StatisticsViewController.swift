@@ -18,7 +18,7 @@ final class StatisticsViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 34, weight: .bold)
         return label
     }()
-    
+
     private let notFoundStack = NotFoundStack(
         label: "Анализировать пока нечего",
         image: UIImage(named: "Sad")
@@ -28,16 +28,20 @@ final class StatisticsViewController: UIViewController {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
+        stack.spacing = 12
         return stack
     }()
     
     private let completedTrackersView = StatisticsView(name: "Трекеров завершено")
+    private let bestTimeView = StatisticsView(name: "Лучший период")
+    private let bestDaysView = StatisticsView(name: "Идеальные дни")
+    private let averageValueView = StatisticsView(name: "Среднее значение")
     
     // MARK: - Properties
     
     var statisticsViewModel: StatisticsViewModel?
     private let trackerRecordStore = TrackerRecordStore()
-
+//
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -85,7 +89,10 @@ private extension StatisticsViewController {
         view.addSubview(titleLabel)
         view.addSubview(notFoundStack)
         view.addSubview(statisticsStack)
+        statisticsStack.addArrangedSubview(bestTimeView)
+        statisticsStack.addArrangedSubview(bestDaysView)
         statisticsStack.addArrangedSubview(completedTrackersView)
+        statisticsStack.addArrangedSubview(averageValueView)
     }
     
     func setupConstraints() {
@@ -99,7 +106,9 @@ private extension StatisticsViewController {
             // statisticsStack
             statisticsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             statisticsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            statisticsStack.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+            statisticsStack.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            
+            
         ])
     }
     
