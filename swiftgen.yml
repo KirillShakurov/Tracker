@@ -1,0 +1,9 @@
+input_dir: Tracker/Resources
+output_dir: Tracker/Resources/Generated/
+
+## Strings
+strings:
+  inputs: ru.lproj
+  outputs:
+    templateName: structured-swift5
+    output: Strings+Generated.swift

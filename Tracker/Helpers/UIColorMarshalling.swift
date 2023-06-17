@@ -1,14 +1,14 @@
 //
 //  UIColorMarshalling.swift
-//  Tracker
+//  EmojiMixer
 //
-//  Created by Kirill on 17.04.2023.
+//  Created by Kirill on 07.04.2023.
 //
 
 import UIKit
 
-final class UIColorMarshalling {
-    func makeHEX(from color: UIColor) -> String {
+struct UIColorMarshalling {
+    static func makeHEX(from color: UIColor) -> String {
         let components = color.cgColor.components
         let r: CGFloat = components?[0] ?? 0.0
         let g: CGFloat = components?[1] ?? 0.0
@@ -21,7 +21,7 @@ final class UIColorMarshalling {
         )
     }
     
-    func color(from hex: String) -> UIColor {
+    static func color(from hex: String) -> UIColor {
         var rgbValue:UInt64 = 0
         Scanner(string: hex).scanHexInt64(&rgbValue)
         return UIColor(
@@ -32,4 +32,3 @@ final class UIColorMarshalling {
         )
     }
 }
-

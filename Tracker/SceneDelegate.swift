@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Tracker
 //
-//  Created by Kirill on 26.03.2023.
+//  Created by Kirill on 23.03.2023.
 //
 
 import UIKit
@@ -53,7 +53,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-
-
-
 

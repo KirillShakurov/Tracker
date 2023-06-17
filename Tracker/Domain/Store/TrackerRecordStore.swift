@@ -2,7 +2,7 @@
 //  TrackerRecordStore.swift
 //  Tracker
 //
-//  Created by Kirill on 17.04.2023.
+//  Created by Kirill on 12.04.2023.
 //
 
 import UIKit
@@ -60,6 +60,13 @@ final class TrackerRecordStore: NSObject {
         delegate?.didUpdateRecords(completedTrackers)
     }
     
+    func loadCompletedTrackers() throws -> [TrackerRecord] {
+        let request = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let recordsCoreData = try context.fetch(request)
+        let records = try recordsCoreData.map { try makeTrackerRecord(from: $0) }
+        return records
+    }
+    
     func loadCompletedTrackers(by date: Date) throws {
         let request = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
         request.returnsObjectsAsFaults = false
@@ -87,4 +94,3 @@ extension TrackerRecordStore {
         case decodeError
     }
 }
-

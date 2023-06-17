@@ -2,13 +2,13 @@
 //  UserDefaultsBacked.swift
 //  Tracker
 //
-//  Created by Kirill on 24.04.2023.
+//  Created by Kirill on 22.04.2023.
 //
 
 import Foundation
 
 @propertyWrapper
-struct UserDefaultsBacked<Value: Codable> {
+struct UserDefaultsBacked<Value> {
     let key: String
     let storage: UserDefaults = .standard
     

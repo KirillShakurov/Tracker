@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Tracker
 //
-//  Created by Kirill on 26.03.2023.
+//  Created by Kirill on 23.03.2023.
 //
 
 import UIKit
@@ -20,8 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        AnalyticsService.activate()
         return true
     }
 
@@ -39,3 +42,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
+
